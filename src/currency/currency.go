@@ -24,11 +24,11 @@ type exchangeRate struct {
 
 func Routes() *chi.Mux {
 	router := chi.NewRouter()
-	router.Get("/get", getATodo)
+	router.Get("/get", getCurrency)
 	return router
 }
 
-func getATodo(w http.ResponseWriter, r *http.Request) {
+func getCurrency(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
 
 	var code string
