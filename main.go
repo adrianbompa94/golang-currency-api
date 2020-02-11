@@ -21,9 +21,9 @@ func Routes() *chi.Mux {
 	)
 
 	router.Route("/v1", func(r chi.Router) {
-		r.Mount("/api/todo", currency.Routes())
-	});
-	
+		r.Mount("/exchangeRate", currency.Routes())
+	})
+
 	return router
 }
 
@@ -31,8 +31,8 @@ func main() {
 	router := Routes()
 
 	walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
-		log.Printf("%s %s\n", method, route);
-		return nil;
+		log.Printf("%s %s\n", method, route)
+		return nil
 	}
 	if err := chi.Walk(router, walkFunc); err != nil {
 		log.Panicf("Logging err: %s\n", err.Error())
@@ -40,7 +40,3 @@ func main() {
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
-
-// to do 
-// - return the value of 1 GBP or 1USD in euros
-// - check the value against a historic rate for the last week and make a naive recoomandation as to whether this is a good time to exchange or not
