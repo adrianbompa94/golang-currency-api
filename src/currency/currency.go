@@ -32,6 +32,10 @@ func getATodo(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
 	code := queryParams["currency"][0]
 
+	if code == "" {
+		code = "GBP"
+	}
+
 	if !isValidCurrencyCode(code) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("400 - Bad Request! API only accepts USD and GBP as currency"))
