@@ -30,10 +30,12 @@ func Routes() *chi.Mux {
 
 func getATodo(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
-	code := queryParams["currency"][0]
 
-	if code == "" {
+	var code string
+	if len(queryParams) == 0 {
 		code = "GBP"
+	} else {
+		code = queryParams["currency"][0]
 	}
 
 	if !isValidCurrencyCode(code) {
